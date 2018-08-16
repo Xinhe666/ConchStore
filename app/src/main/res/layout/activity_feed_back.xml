@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.FeedBackActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/feedback_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="请输入你的问题，工作人员会尽快联系并恢复您的问题（限150字以内）"
+            android:padding="5dp"
+            android:textSize="12sp" />
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/feedback_sumit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="48dp"
+        android:background="@drawable/button_sure"
+        android:text="提交"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+</LinearLayout>

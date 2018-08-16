@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.bingoogolapple.bgabanner.BGABanner
+    style="@style/BannerDefaultStyle"
+    android:id="@+id/item_multiple_banner"
+    android:layout_height="180dp"
+    android:layout_width="match_parent"
+    app:banner_aspectRatio="2.5"
+    app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+    app:banner_pointAutoPlayAble="true"
+    app:banner_pointContainerBackground="@android:color/transparent"
+    app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+    app:banner_transitionEffect="defaultEffect"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+</cn.bingoogolapple.bgabanner.BGABanner>
