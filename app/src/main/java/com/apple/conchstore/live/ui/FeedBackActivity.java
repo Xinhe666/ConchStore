@@ -19,6 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @author yanshihao
+ */
 public class FeedBackActivity extends BaseActivity<MainMvpView, MainPersenter>
         implements MainMvpView {
 
@@ -71,6 +74,7 @@ public class FeedBackActivity extends BaseActivity<MainMvpView, MainPersenter>
                        mFeedbackSumit.postDelayed(new Runnable() {
                            @Override
                            public void run() {
+                               finish();
                                ToastUtils.showToast("感谢您的宝贵意见");
                            }
                        },1000);

@@ -24,6 +24,7 @@ import com.apple.conchstore.live.utils.Contents;
 import com.apple.conchstore.live.utils.SPUtil;
 import com.apple.conchstore.live.utils.ToastUtils;
 import com.apple.conchstore.live.widgets.ProfileEdit;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -123,14 +124,12 @@ public class MyFragment extends Fragment {
                 break;
             case R.id.btn:
                 if (isLogin) {
-                    SPUtil.remove(getContext(),Contents.TOKEN);
-                    SPUtil.remove(getContext(),Contents.PHONE);
-                    ToastUtils.showToast("用户已退出");
+                    SPUtil.remove(getContext(), Contents.TOKEN);
+                    SPUtil.remove(getContext(), Contents.PHONE);
                     mBtn.setVisibility(View.GONE);
                     mTextView.setText("登录");
                     isLogin = false;
                 } else {
-                    ToastUtils.showToast("您还没有登录，请先登录");
                 }
                 break;
             case R.id.info_feedback:

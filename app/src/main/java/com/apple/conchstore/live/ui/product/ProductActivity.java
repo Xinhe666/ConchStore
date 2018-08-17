@@ -30,6 +30,7 @@ import com.apple.conchstore.live.utils.ToastUtils;
 import com.apple.conchstore.live.widgets.recyclerview.ItemType;
 import com.apple.conchstore.live.widgets.recyclerview.MultipleItem;
 import com.apple.conchstore.live.widgets.recyclerview.RecycleViewDivider;
+import com.apple.conchstore.util.Constant;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -37,6 +38,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,7 +76,7 @@ public class ProductActivity extends BaseActivity<MainMvpView, MainPersenter>
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setEnableLoadMore(false);
-        mAdapter = new ProductAdapter(null,mRecyclerView);
+        mAdapter = new ProductAdapter(null, mRecyclerView);
         mRecyclerView.addItemDecoration(new RecycleViewDivider(this,
                 LinearLayoutManager.HORIZONTAL, 20, getResources().getColor(R.color.divider_background)));
 
@@ -94,7 +96,7 @@ public class ProductActivity extends BaseActivity<MainMvpView, MainPersenter>
         });
         mList = new ArrayList<>();
 
-        mInt = getIntent().getIntExtra("type", 0);
+        mInt = getIntent().getIntExtra(Contents.TYPE, 0);
     }
 
     @Override
@@ -103,57 +105,19 @@ public class ProductActivity extends BaseActivity<MainMvpView, MainPersenter>
     }
 
     private void getData(KProgressHUD kProgressHUD) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("identity", mInt + "");
         mList.clear();
-        OkgoUtils.execute(Api.PRODUCT_SCREEN, null, kProgressHUD, new OnRequestListener() {
+        OkgoUtils.execute(Api.PRODUCT_SCREEN, params, kProgressHUD, new OnRequestListener() {
             @Override
             public void requestSuccess(JSONObject jsonObject) {
                 JSONArray jsonArray = jsonObject.getJSONArray("data");
                 List<Product> entities = JSON.parseArray(JSON.toJSONString(jsonArray), Product.class);
-
-                switch (mInt) {
-                    case 0:
-                        for (Product p : entities) {
-                            MultipleItem multipleItem = new MultipleItem();
-                            multipleItem.setItemType(ItemType.PRODUCT)
-                                    .setProduct(p);
-                            mList.add(multipleItem);
-                        }
-
-                        break;
-                    case 1:
-                        for (Product p : entities) {
-                            List<Product.LabelsBean> labels = p.getLabels();
-                            if (labels.size() > 0) {
-                                be:
-                                for (Product.LabelsBean bean : labels) {
-                                    if ("身份证".equals(bean.getName())) {
-                                        MultipleItem multipleItem = new MultipleItem();
-                                        multipleItem.setItemType(ItemType.PRODUCT)
-                                                .setProduct(p);
-                                        mList.add(multipleItem);
-                                        break be;
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case 2:
-                        for (Product p : entities) {
-                            List<Product.LabelsBean> labels = p.getLabels();
-                            if (labels.size() > 0) {
-                                be:
-                                for (Product.LabelsBean bean : labels) {
-                                    if ("实名手机".equals(bean.getName())) {
-                                        MultipleItem multipleItem = new MultipleItem();
-                                        multipleItem.setItemType(ItemType.PRODUCT)
-                                                .setProduct(p);
-                                        mList.add(multipleItem);
-                                        break be;
-                                    }
-                                }
-                            }
-                        }
-                        break;
+                for (Product p : entities) {
+                    MultipleItem multipleItem = new MultipleItem();
+                    multipleItem.setItemType(ItemType.PRODUCT)
+                            .setProduct(p);
+                    mList.add(multipleItem);
                 }
                 mAdapter.setNewData(mList);
             }
@@ -162,7 +126,6 @@ public class ProductActivity extends BaseActivity<MainMvpView, MainPersenter>
             public void requestFailure(String error) {
                 ToastUtils.showToast(error);
                 mAdapter.setEmptyView(R.layout.item_multiple_empty);
-
             }
         });
     }

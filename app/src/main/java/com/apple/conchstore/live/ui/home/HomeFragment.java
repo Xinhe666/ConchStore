@@ -76,10 +76,10 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
                         mHomePersenter.launcher();
                         break;
                     case R.id.home_iamge_big:
-                        ProductActivity.launcher(getContext(), 0);
+                        ProductActivity.launcher(getContext(), 3);
                         break;
                     case R.id.home_iamge_below:
-                        ProductActivity.launcher(getContext(), 2);
+                        ProductActivity.launcher(getContext(), 4);
                         break;
                     default:
                         break;
